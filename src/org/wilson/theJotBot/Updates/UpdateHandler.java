@@ -1,13 +1,16 @@
-package org.wilson.theJotBot;
+package org.wilson.theJotBot.Updates;
 
-import org.telegram.telegrambots.api.methods.AnswerCallbackQuery;
+
 import org.telegram.telegrambots.api.methods.BotApiMethod;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
-import org.telegram.telegrambots.api.objects.CallbackQuery;
+import org.telegram.telegrambots.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
+import org.wilson.theJotBot.Config.BotConfig;
+import org.wilson.theJotBot.Updates.CallbackHandler.CallbackHandler;
+import org.wilson.theJotBot.Updates.MessageHandler.MessageHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -26,7 +29,6 @@ public class UpdateHandler extends TelegramLongPollingBot {
 		try {
 			BotApiMethod<?> msg = handleUpdate(update);
 			if (msg != null) {
-				System.out.println("MSG FOR DEBUGGING" + msg);
 				executeMessage(msg);
 			}
 
@@ -47,7 +49,7 @@ public class UpdateHandler extends TelegramLongPollingBot {
 		if (update.hasMessage()){
 			Message message = update.getMessage();
 
-			CommandParser commandParser = new CommandParser(message);
+			MessageHandler commandParser = new MessageHandler(message);
 			try {
 				sendMessageRequest = commandParser.parse();
 
@@ -59,19 +61,11 @@ public class UpdateHandler extends TelegramLongPollingBot {
 			}
 		
 		else if (update.hasCallbackQuery()) {
-			CallbackQuery cb = update.getCallbackQuery();
-			sendMessageRequest.setChatId(cb.getMessage().getChatId());
-			sendMessageRequest.setText("Alert!");
-
-			try {
-				Thread.sleep(5000);
-				System.out.println("sleep???");
-				return sendMessageRequest;
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+			//We either have an edit request for the Jots jot OR
+			//we have a reminder in progress - which we don't need an edit text for
+			CallbackHandler cb = new CallbackHandler(update);
+			EditMessageText editRequest = cb.handleCallbackQuery();
+			return editRequest;
 		}
 		return null;
 

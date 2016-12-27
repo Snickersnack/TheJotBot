@@ -5,6 +5,8 @@ import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 import org.telegram.telegrambots.logging.BotLogger;
+import org.wilson.theJotBot.Updates.UpdateHandler;
+import org.wilson.theJotBot.Util.DateScheduler;
 
 
 /**
@@ -23,22 +25,8 @@ public class Main {
         } catch (TelegramApiException e) {
             BotLogger.error("Error: ", e);
         }
-        
-//        if (BuildVars.useWebHook) {
-//            webhook = new DefaultWebhook();
-//        }
+        Thread dateThread = new Thread(new DateScheduler());
+        dateThread.start();
 
-//        initBots();
-
-//        if (BuildVars.useWebHook) {
-//            webhook.startDebugServer();
-            //webhook.startServer();
-//        }
-//    }
-
-//    private static void initBots() {
-//    	YelpCache.getInstance().init();	
-//    	CallBack newBot = new NewBotHandler(webhook);
-//    }
     }
 }

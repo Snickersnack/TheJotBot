@@ -1,4 +1,4 @@
-package org.wilson.theJotBot;
+package org.wilson.theJotBot.Config;
 
 //May need to replace all vars
 public class BuildVars {
