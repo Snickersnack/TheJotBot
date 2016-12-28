@@ -86,7 +86,6 @@ public class MessageHandler {
 					sb.append("You have no jots!");
 				}else{
 					JotsConstructor.create(sb, set);
-					System.out.println("current output! " + sb.toString());
 				}	
 			}
 			
@@ -113,7 +112,7 @@ public class MessageHandler {
 					JotModel jotModel = new JotModel(jot);
 					jotModel = Cache.getInstance().registerJot(jotModel);
 					if(set.add(jotModel)){
-						sb.append("Jot <i>" + jot + "</i> added!");
+						sb.append("Jotted down <i>" + jot + "</i>");
 					}
 //					else{
 //						sb.append("You have the exact same jot somewhere!");
