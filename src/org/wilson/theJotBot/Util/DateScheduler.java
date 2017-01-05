@@ -24,14 +24,15 @@ public class DateScheduler implements Runnable {
         zonedNextDay = zonedNow.withHour(0).withMinute(0).withSecond(0);
         if(zonedNow.compareTo(zonedNextDay) > 0){
         	zonedNextDay = zonedNextDay.plusDays(1);
-            System.out.println("Next event cleanup: " + zonedNextDay);
+            System.out.println("Next cleanup: " + zonedNextDay);
 
         }        
         Duration duration = Duration.between(zonedNow, zonedNextDay);
         long initialDelay = duration.getSeconds();
         
 	    ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);            
-	    scheduler.scheduleAtFixedRate(new DateEventCleanup(), initialDelay,  24*60*60, TimeUnit.SECONDS);
+	    scheduler.scheduleAtFixedRate(new DateJotCleanup(), initialDelay,  24*60*60, TimeUnit.SECONDS);
+
 		}catch(Exception e){
 			System.out.println(e);
 		}

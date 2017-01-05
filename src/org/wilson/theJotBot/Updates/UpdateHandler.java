@@ -25,7 +25,7 @@ public class UpdateHandler extends TelegramLongPollingBot {
 	
 	public void onUpdateReceived(Update update) {
 		// TODO Auto-generated method stub
-		System.out.println("heres' the update: " + update);
+		System.out.println("update: " + update);
 		try {
 			BotApiMethod<?> msg = handleUpdate(update);
 			if (msg != null) {
@@ -77,7 +77,6 @@ public class UpdateHandler extends TelegramLongPollingBot {
 		if(msg == null){
 			return;
 		}
-		System.out.println("sending: "  + msg.toString());
 		if (msg instanceof SendMessage) {
 			SendMessage sMessage = (SendMessage) msg;
 			if(sMessage.getChatId()!=null){

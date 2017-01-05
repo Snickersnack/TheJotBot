@@ -1,10 +1,22 @@
 package org.wilson.theJotBot.Models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.wilson.theJotBot.Util.JotConverter;
+
+
+@Entity
+@Table(name = "jots")
 
 public class JotModel {
 
 	Long id;
+	Integer userId;
 	String jotText;
 	boolean completed;
 	String jotCommand;
@@ -34,33 +46,50 @@ public class JotModel {
 		this.completed = completed;
 	}
 
+	
+	@Column(name = "user_id")
+	public Integer getUserId() {
+		return userId;
+	}
+
+	@Id
+	@Column(name = "jot_id")
 	public Long getId() {
 		return id;
 	}
 
+	@Column(name = "jot_text")
+	public String getJotText() {
+		return jotText;
+	}
+	
+	@Column(name = "completed")
+	public boolean isCompleted() {
+		return completed;
+	}
+	
+	@Column(name = "jot_command")
+	public String getJotCommand() {
+		return jotCommand;
+	}
+	
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getJotText() {
-		return jotText;
-	}
 
 	public void setJotText(String jotText) {
 		this.jotText = jotText;
-	}
-
-	public boolean isCompleted() {
-		return completed;
 	}
 
 	public void setCompleted(boolean completed) {
 		this.completed = completed;
 	}
 
-	public String getJotCommand() {
-		return jotCommand;
-	}
 
 	public void setJotCommand(String jotCommand) {
 		this.jotCommand = jotCommand;

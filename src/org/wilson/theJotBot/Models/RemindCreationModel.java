@@ -1,14 +1,14 @@
 package org.wilson.theJotBot.Models;
 
-public class RemindModel {
+public class RemindCreationModel {
 
 	Integer hours;
 	String text;
 	
-	public RemindModel(){
+	public RemindCreationModel(){
 		this(null, null);
 	}
-	public RemindModel(Integer hours, String text){
+	public RemindCreationModel(Integer hours, String text){
 		this.hours = hours;
 		this.text = text;
 	}

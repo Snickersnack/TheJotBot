@@ -19,6 +19,7 @@ public class Main {
 
     public static void main(String[] args) throws TelegramApiRequestException {
     	ApiContextInitializer.init();
+    	Cache.getInstance().init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
         try {
             telegramBotsApi.registerBot(new UpdateHandler());

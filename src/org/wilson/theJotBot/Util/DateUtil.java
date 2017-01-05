@@ -20,7 +20,7 @@ public final class DateUtil {
 
 	public static LocalDateTime getCurrentTime() {
 
-		timeClient.setDefaultTimeout(5000);
+		timeClient.setDefaultTimeout(2000);
 		int tries = 0;
 		boolean completed = false;
 		long returnTime = 0;

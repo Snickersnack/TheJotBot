@@ -76,28 +76,6 @@ public class KeyboardBuilder {
 	}
 	
 	
-	//Working on this
-	public InlineKeyboardMarkup buildRemindMarkup(){
-		ArrayList<List<InlineKeyboardButton>> keyboard = new ArrayList<List<InlineKeyboardButton>>();
-		int counter = 0;
-		for(int i =0; i<rows; i++){
-			List<InlineKeyboardButton> columnButtons = new ArrayList<InlineKeyboardButton>();
-			for(int j =0; j<columns; j++){
-				columnButtons.add(buttons.get(counter));
-				counter++;
-			}
-			keyboard.add(columnButtons);
-		}
-		InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
-		markup.setKeyboard(keyboard);
-		
-		return markup;
-
-	}
-	
-	
-	
-	
 	
 	public void addButton(InlineKeyboardButton button){
 		buttons.add(button);

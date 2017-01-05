@@ -14,6 +14,8 @@ public class Commands {
     public static final String JOTSCOMMAND = commandInitChar +"jots";
     public static final String SKIPCOMMAND = commandInitChar + "skip";
     public static final String HELPCOMMAND = commandInitChar + "help";
+    public static final String USERCOUNTCOMMAND = commandInitChar + "usercount";
+
 
 
 

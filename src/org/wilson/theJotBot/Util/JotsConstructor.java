@@ -49,7 +49,7 @@ public class JotsConstructor {
 				sb.append(complete.toString());
 				sb.append(System.getProperty("line.separator"));
 				sb.append(System.getProperty("line.separator"));
-				sb.append("<i>*will clear at midnight</i>");
+				sb.append("<i>*will clear at midnight PST</i>");
 			}
 		
 	}

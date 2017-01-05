@@ -3,14 +3,15 @@ package org.wilson.theJotBot.Updates.CallbackHandler;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import org.hibernate.Session;
 import org.telegram.telegrambots.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.api.objects.CallbackQuery;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
 import org.wilson.theJotBot.CallbackData;
+import org.wilson.theJotBot.HibernateUtil;
 import org.wilson.theJotBot.Models.JotModel;
 import org.wilson.theJotBot.Updates.UpdateHandler;
-import org.wilson.theJotBot.Util.JotConverter;
 import org.wilson.theJotBot.Util.JotFinder;
 import org.wilson.theJotBot.Util.KeyboardBuilder;
 
@@ -54,10 +55,11 @@ public class CallbackHandler extends UpdateHandler {
 
 			}
 		}
+		
+		//Update db here
 		StringBuilder sb = new StringBuilder();
 		System.out.println("action: " + action);
 		if(action.equals(CallbackData.COMPLETED) || action.equals(CallbackData.UNDO)){
-			System.out.println("jot in the callback: " + jot);
 			jotModel = JotFinder.findJotByUser(jot, userId);
 			KeyboardBuilder keyboardBuilder = new KeyboardBuilder();
 			if(action.equals(CallbackData.COMPLETED)){
@@ -72,8 +74,27 @@ public class CallbackHandler extends UpdateHandler {
 				editRequest.setReplyMarkup(keyboardBuilder.buildJotsMarkup(CallbackData.COMPLETED, jot));
 				
 			}
-		}else{
-			handleRemind();
+			
+			Session session = null;
+			try {
+				session = HibernateUtil.getSessionFactory()
+						.openSession();
+				session.beginTransaction();
+				session.saveOrUpdate(jotModel);
+				session.getTransaction().commit();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+
+				if (session != null) {
+					session.close();
+				}
+			}
+		}
+		
+		//currently we have no buttons other than for jot
+		else{
 			return null;
 		}
 		
@@ -82,7 +103,5 @@ public class CallbackHandler extends UpdateHandler {
 		return editRequest;
 	}
 	
-	private void handleRemind(){
-		
-	}
+
 }
