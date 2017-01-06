@@ -1,9 +1,12 @@
 package org.wilson.theJotBot.Util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +28,9 @@ public class DateScheduler implements Runnable {
         if(zonedNow.compareTo(zonedNextDay) > 0){
         	zonedNextDay = zonedNextDay.plusDays(1);
             System.out.println("Next cleanup: " + zonedNextDay);
+    		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    		Date systemdate = new Date();
+    		System.out.println("System time: " + dateFormat.format(systemdate));
 
         }        
         Duration duration = Duration.between(zonedNow, zonedNextDay);

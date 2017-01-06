@@ -1,6 +1,10 @@
 package org.wilson.theJotBot.Updates;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.telegram.telegrambots.api.methods.BotApiMethod;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.methods.updatingmessages.EditMessageText;
@@ -25,7 +29,7 @@ public class UpdateHandler extends TelegramLongPollingBot {
 	
 	public void onUpdateReceived(Update update) {
 		// TODO Auto-generated method stub
-		System.out.println("update: " + update);
+
 		try {
 			BotApiMethod<?> msg = handleUpdate(update);
 			if (msg != null) {
@@ -44,11 +48,13 @@ public class UpdateHandler extends TelegramLongPollingBot {
 			throws TelegramApiException {
 		
 		SendMessage sendMessageRequest = new SendMessage();
-		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		String updatetext = "";
 
 		if (update.hasMessage()){
 			Message message = update.getMessage();
-
+			updatetext = message.toString();
 			MessageHandler commandParser = new MessageHandler(message);
 			try {
 				sendMessageRequest = commandParser.parse();
@@ -64,9 +70,13 @@ public class UpdateHandler extends TelegramLongPollingBot {
 			//We either have an edit request for the Jots jot OR
 			//we have a reminder in progress - which we don't need an edit text for
 			CallbackHandler cb = new CallbackHandler(update);
+			updatetext = update.getCallbackQuery().toString();
 			EditMessageText editRequest = cb.handleCallbackQuery();
 			return editRequest;
 		}
+		
+		System.out.println(dateFormat.format(date) + ": " + updatetext);
+
 		return null;
 
 	}

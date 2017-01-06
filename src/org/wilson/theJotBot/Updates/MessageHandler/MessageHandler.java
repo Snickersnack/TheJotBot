@@ -2,7 +2,9 @@ package org.wilson.theJotBot.Updates.MessageHandler;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
@@ -141,11 +143,15 @@ public class MessageHandler {
 
 				}
 				
+				Pattern p = Pattern.compile("[^a-zA-Z0-9_ ]");
+				boolean hasSpecialChar = p.matcher(jot).find();
 				
-				if(jot.startsWith(Commands.JOTCOMMAND)){
+				if(jot.startsWith(Commands.JOTCOMMAND) || jot.toLowerCase().startsWith("jot")){
 					sb.append("Jot cannot be a jot");	
 				}
-				
+				else if(hasSpecialChar){
+					sb.append("Please use letters numbers or underscores only");
+				}
 				else if(jot.trim().length() > 0){
 					JotModel jotModel = new JotModel(jot);
 					if(set.add(jotModel)){

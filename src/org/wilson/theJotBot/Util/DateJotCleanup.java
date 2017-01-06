@@ -1,6 +1,9 @@
 package org.wilson.theJotBot.Util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -27,6 +30,9 @@ public class DateJotCleanup implements Runnable{
 	
 	public void run(){
 		System.out.println("running cleanup");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date systemdate = new Date();
+		System.out.println("System time: " + dateFormat.format(systemdate));
 		try{
 		map = Cache.getInstance().getJotMap();		
 		Session session = null;
