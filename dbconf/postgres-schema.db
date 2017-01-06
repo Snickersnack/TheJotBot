@@ -1,0 +1,25 @@
+CREATE TABLE users(
+	user_id INT, 
+	CONSTRAINT user_id_pk PRIMARY KEY (user_id)
+);
+
+CREATE TABLE jots(
+	jot_id BIGINT NOT NULL,
+	user_id INT,
+	jot_text VARCHAR(255),
+	completed BOOLEAN,
+	jot_command VARCHAR(255),
+	CONSTRAINT jot_id_pk PRIMARY KEY (jot_id),
+	CONSTRAINT jot_id_fk FOREIGN KEY (user_id) REFERENCES users(user_id)
+
+);
+
+CREATE TABLE reminders(
+	reminder_id BIGSERIAL NOT NULL,
+	target_time BIGINT,
+	chat_id BIGINT,
+	user_id INT,
+	reminder_text VARCHAR(255),
+	CONSTRAINT reminder_id_pk PRIMARY KEY (reminder_id),
+	CONSTRAINT reminder_id_fk FOREIGN KEY (user_id) REFERENCES users (user_id)
+);
