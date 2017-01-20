@@ -23,6 +23,7 @@ public class DateScheduler implements Runnable {
 		LocalDateTime date = DateUtil.getCurrentTime();
 		ZoneId currentZone = ZoneId.of(BotConfig.TIME_ZONE);
 		ZonedDateTime zonedNow = ZonedDateTime.of(date, currentZone);
+		System.out.println("now: " + zonedNow);
         ZonedDateTime zonedNextDay ;
         zonedNextDay = zonedNow.withHour(0).withMinute(0).withSecond(0);
         if(zonedNow.compareTo(zonedNextDay) > 0){
@@ -35,7 +36,7 @@ public class DateScheduler implements Runnable {
         }        
         Duration duration = Duration.between(zonedNow, zonedNextDay);
         long initialDelay = duration.getSeconds();
-        
+        System.out.println("Seconds before cleanup: " + initialDelay);
 	    ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);            
 	    scheduler.scheduleAtFixedRate(new DateJotCleanup(), initialDelay,  24*60*60, TimeUnit.SECONDS);
 

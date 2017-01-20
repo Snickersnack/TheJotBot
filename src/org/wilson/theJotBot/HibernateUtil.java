@@ -31,9 +31,6 @@ public class HibernateUtil {
 //			cfg.getProperties().setProperty("hibernate.connection.username", "postgres");
 
 
-//			    return DriverManager.getConnection(dbUrl, username, password);
-			// Create the SessionFactory from hibernate.cfg.xml
-//			return new Configuration().configure().buildSessionFactory();
 			return cfg.buildSessionFactory();
 
 		} catch (Throwable ex) {

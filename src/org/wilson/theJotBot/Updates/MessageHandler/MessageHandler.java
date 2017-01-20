@@ -52,14 +52,14 @@ public class MessageHandler {
 		
 		HashMap<Integer, RemindCreationModel> remindMap = Cache.getInstance().getInProgressRemind();
 		
-		if(command.startsWith(Commands.HELPCOMMAND)){
-			sb.append("Bot used for quick notes and reminders. Users can only use through direct messaging @theJotBot.");
+		if(command.startsWith(Commands.STARTCOMMAND)){
+			sb.append("theJotBot is a minimalist bot intended to help jot down quick notes and reminders.");
 			sb.append(System.getProperty("line.separator"));
 			sb.append(System.getProperty("line.separator"));
-			sb.append("Start with a note by using /jot, or create a reminder with /remind.");
+			sb.append("Begin jotting notes by directly messaging @theJotBot with /jot, or create a reminder with /remind.");
 			sb.append(System.getProperty("line.separator"));
 			sb.append(System.getProperty("line.separator"));
-			sb.append("List all of your notes by using /jots and mark them as complete!");
+			sb.append("Use /jots to view your list of jots and click a jot to mark it as complete!");
 
 		}
 		else if(!message.isUserMessage()){
@@ -143,16 +143,17 @@ public class MessageHandler {
 
 				}
 				
-				Pattern p = Pattern.compile("[^a-zA-Z0-9_ ]");
+				Pattern p = Pattern.compile("[^a-zA-Z0-9 ]");
 				boolean hasSpecialChar = p.matcher(jot).find();
 				
 				if(jot.startsWith(Commands.JOTCOMMAND) || jot.toLowerCase().startsWith("jot")){
 					sb.append("Jot cannot be a jot");	
 				}
 				else if(hasSpecialChar){
-					sb.append("Please use letters numbers or underscores only");
+					sb.append("Can't compute! Jots need to be numbers and letters only please :)");
 				}
 				else if(jot.trim().length() > 0){
+
 					JotModel jotModel = new JotModel(jot);
 					if(set.add(jotModel)){
 						sb.append("Jotted down <i>" + jot + "</i>");
@@ -178,9 +179,9 @@ public class MessageHandler {
 							}
 						}
 					}
-//					else{
-//						sb.append("You have the exact same jot somewhere!");
-//					}
+					else{
+						sb.append("You've already jotted this down!");
+					}
 				}else{
 					sb.append("Jots cannot be empty spaces");
 				}

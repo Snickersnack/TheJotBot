@@ -66,7 +66,7 @@ import org.wilson.theJotBot.Util.DateUtil;
 				HashSet<JotModel> jotSet = jotMap.get(userId);
 				jotSet.add(jot);
 				
-				System.out.println("adding jot: " + jot.getJotText());
+//				System.out.println("adding jot: " + jot.getJotText());
 			}
 			globalJotId = maxId+1;
 			

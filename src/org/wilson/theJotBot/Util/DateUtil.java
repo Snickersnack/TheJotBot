@@ -1,12 +1,17 @@
 package org.wilson.theJotBot.Util;
 
 import java.net.InetAddress;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
+import java.util.TimeZone;
 
 import org.apache.commons.net.ntp.NTPUDPClient;
 import org.apache.commons.net.ntp.TimeInfo;
+import org.wilson.theJotBot.Config.BotConfig;
 
 public final class DateUtil {
 	
@@ -28,11 +33,10 @@ public final class DateUtil {
 		while(tries<MAX_TRIES && !completed){
 			try {
 				System.out.println("contacting time servers...");
-
 				InetAddress inetAddress = InetAddress.getByName(TIME_SERVERS[tries]);
 				TimeInfo timeInfo = timeClient.getTime(inetAddress);
 				returnTime = timeInfo.getMessage().getTransmitTimeStamp().getTime();
-				LocalDateTime date = LocalDateTime.ofInstant(Instant.ofEpochMilli(returnTime), ZoneId.systemDefault());
+				LocalDateTime date = LocalDateTime.ofInstant(Instant.ofEpochMilli(returnTime), ZoneId.of(BotConfig.TIME_ZONE));
 				completed = true;
 				return date;
 			} catch (Exception e) {

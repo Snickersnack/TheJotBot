@@ -9,9 +9,6 @@ Built on top of the Java API telegram wrapper located here: https://github.com/r
 
 	
 
-## Adding bot on Telegram
-Create a new group in Telegram and search for @BOYZbot
-Invite to group
 
 
 

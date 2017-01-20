@@ -96,4 +96,21 @@ public class JotModel {
 	}
 	
 	
+	
+	@Override 
+	public boolean equals(Object o){
+		if(!(o instanceof JotModel)){
+			return false;
+		}
+		JotModel obj = (JotModel)o;
+		return this.jotText.equals(obj.getJotText());
+	}
+	
+	@Override
+	public int hashCode(){
+		int result = 17;
+		result = 31 * result + this.jotText.hashCode();
+		return result;
+		
+	}
 }

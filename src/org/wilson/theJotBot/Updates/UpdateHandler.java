@@ -20,8 +20,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class UpdateHandler extends TelegramLongPollingBot {
 
-	private static final String TOKEN = BotConfig.TOKENNEWBOT;
-	private static final String BOTNAME = BotConfig.USERNAMENEWBOT;
+	private static final String TOKEN = BotConfig.BOTTOKEN;
+	private static final String BOTNAME = BotConfig.BOTUSERNAME;
 
 	ObjectMapper mapper = new ObjectMapper();
 
@@ -54,7 +54,7 @@ public class UpdateHandler extends TelegramLongPollingBot {
 
 		if (update.hasMessage()){
 			Message message = update.getMessage();
-			updatetext = message.toString();
+			updatetext = "Message: " + message.toString();
 			MessageHandler commandParser = new MessageHandler(message);
 			try {
 				sendMessageRequest = commandParser.parse();
@@ -70,7 +70,8 @@ public class UpdateHandler extends TelegramLongPollingBot {
 			//We either have an edit request for the Jots jot OR
 			//we have a reminder in progress - which we don't need an edit text for
 			CallbackHandler cb = new CallbackHandler(update);
-			updatetext = update.getCallbackQuery().toString();
+			updatetext = "Callback: " + update.getCallbackQuery().toString();
+			
 			EditMessageText editRequest = cb.handleCallbackQuery();
 			return editRequest;
 		}
