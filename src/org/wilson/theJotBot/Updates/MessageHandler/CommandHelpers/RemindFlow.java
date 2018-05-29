@@ -53,7 +53,7 @@ public class RemindFlow {
 					return sendMessageRequest;
 				}
 				if(hoursInput<1 || hoursInput >24){
-					sendMessageRequest.setText("Hour must be between 1 and 24 inclusive");
+					sendMessageRequest.setText("Can't compute! Hour must be within 1 and 24");
 					return sendMessageRequest;
 				}
 				remindCreationModel.setHours(hoursInput);
@@ -100,12 +100,12 @@ public class RemindFlow {
 				try{
 					hoursInput = Integer.valueOf(commandArray[1]);
 				}catch(Exception e){
-					sendMessageRequest.setText("Must be valid number");
+					sendMessageRequest.setText("Can't compute! Must be a valid number");
 					return sendMessageRequest;
 				}
 				
 				if(hoursInput<1 || hoursInput >24){
-					sendMessageRequest.setText("Hour must be between 1 and 24 inclusive");
+					sendMessageRequest.setText("Can't compute! Hour must be within 1 and 24");
 					return sendMessageRequest;
 				}
 				String text = "";

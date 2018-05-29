@@ -52,6 +52,16 @@ public class MessageHandler {
 		
 		HashMap<Integer, RemindCreationModel> remindMap = Cache.getInstance().getInProgressRemind();
 		
+		RemindCreationModel inProgressRemind = remindMap.get(userId);
+		if(inProgressRemind != null){
+			if(command.startsWith(Commands.STARTCOMMAND) || command.startsWith(Commands.REMINDCOMMAND) || command.equals(Commands.JOTSCOMMAND) 
+					|| command.startsWith(Commands.JOTCOMMAND) || command.startsWith(Commands.USERCOUNTCOMMAND)){
+				inProgressRemind = null;
+				remindMap.remove(userId);
+				
+			}
+		}
+		
 		if(command.startsWith(Commands.STARTCOMMAND)){
 			sb.append("theJotBot is a minimalist bot intended to help jot down quick notes and reminders.");
 			sb.append(System.getProperty("line.separator"));
@@ -63,7 +73,7 @@ public class MessageHandler {
 
 		}
 		else if(!message.isUserMessage()){
-			sb.append("This bot is not meant for group usage. Message @theJotBot to start.");
+			sb.append("Can't compute! This bot is not meant for group usage. Message @theJotBot to start.");
 		}
 		
 		else{
